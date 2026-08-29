@@ -35,23 +35,20 @@ automouse는 오른손 바닥이 볼에 닿으면 홈로우를 덮어버려서 �
    브라우저에서 열고 USB로 연결하면 즉시 키맵을 바꿀 수 있다 (잠금 해제 불필요, `LOCKING=n`).
 2. **소스 수정 후 재빌드** — `config/charybdis.keymap` 수정 후 아래 로컬 빌드.
 
-## 로컬 빌드 (Docker)
-
-GitHub Actions 없이 로컬에서 빌드한다:
+## 빌드 + 플래싱 (Docker, Actions 불필요)
 
 ```sh
-./build.sh
+./flash.sh          # 빌드 후 오른쪽 플래싱 — 키맵만 바꿨을 땐 이걸로 충분
+./flash.sh both     # 빌드 후 오른쪽 → 왼쪽 순서로
+./flash.sh -n right # 빌드 생략, 플래싱만
 ```
 
-- 첫 실행은 `west update` 때문에 수 분 걸린다 (워크스페이스는 `~/zmk-workspace`에 캐시됨).
-- 결과물: `firmware/charybdis_left.uf2`, `firmware/charybdis_right.uf2`
-  (오른쪽에는 ZMK Studio 스니펫 포함).
+안내가 나오면 해당 하프를 USB로 연결하고 리셋 버튼을 **빠르게 두 번** 누르면
+자동으로 감지·플래싱·재부팅된다. 마운트에 sudo 대신 docker를 쓴다.
 
-## 플래싱
-
-1. 한쪽 하프를 USB로 연결하고 리셋 버튼을 **두 번** 눌러 부트로더 진입 (USB 드라이브로 마운트됨).
-2. 해당 하프의 `.uf2` 파일을 드라이브에 복사하면 자동으로 플래싱 후 재부팅.
-3. 좌우는 독립적이므로 각각 연결해서 플래싱한다.
+빌드만 하려면 `./build.sh` (첫 실행은 `west update` 때문에 수 분,
+워크스페이스는 `~/zmk-workspace`에 캐시됨). 결과물은 `firmware/*.uf2`,
+오른쪽에는 ZMK Studio 스니펫이 포함된다.
 
 > 키맵만 바꿀 때는 좌우 모두 플래싱할 필요 없이 **오른쪽(central, 트랙볼 쪽)** 만 플래싱해도 된다.
 > 설정(`.conf`)이나 하드웨어 정의를 바꿨다면 양쪽 모두 플래싱.
