@@ -14,6 +14,7 @@
 #define NAV 1
 #define NAV_MOUSE 2
 #define MOD 3
+#define AUTOMOUSE 4
 
 &mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
 
@@ -144,6 +145,20 @@
 &sys_reset      &none         &none         &none         &none         &none           &none  &rgb_ug RGB_TOG  &rgb_ug RGB_EFF  &rgb_ug RGB_BRI  &rgb_ug RGB_BRD  &sys_reset
                                             &none         &none         &none           &none  &none
                                                           &trans        &none           &none
+            >;
+        };
+
+        // 트랙볼을 굴리면 드라이버가 자동으로 켜는 레이어.
+        // 손바닥이 볼에 스쳐도 피해가 H/J/K/L 네 키로 제한되도록 나머지는 전부 &trans.
+        automouse {
+            display-name = "Auto";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans     &trans     &trans     &trans     &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans     &trans     &trans     &trans     &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &mkp MB4   &mkp LCLK  &mkp RCLK  &mkp MB5   &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans     &trans     &trans     &trans     &trans  &trans
+                        &trans  &trans  &trans    &trans     &trans
+                                &trans  &trans    &trans
             >;
         };
     };
