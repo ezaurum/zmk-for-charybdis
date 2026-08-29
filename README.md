@@ -59,10 +59,15 @@ automouse는 오른손 바닥이 볼에 닿으면 홈로우를 덮어버려서 �
 [keymap-drawer](https://github.com/caksoylar/keymap-drawer)로 그린다. 로컬에서:
 
 ```sh
-pip install keymap-drawer
-keymap -c keymap_drawer.config.yaml parse -z config/charybdis.keymap > /tmp/parsed.yaml
-keymap -c keymap_drawer.config.yaml draw --dts-layout config/boards/shields/charybdis/charybdis.dtsi /tmp/parsed.yaml > img/charybdis.svg
+uvx --python 3.12 --from keymap-drawer keymap -c keymap_drawer.config.yaml \
+  parse -z config/charybdis.keymap > img/charybdis.yaml
+uvx --python 3.12 --from keymap-drawer keymap -c keymap_drawer.config.yaml \
+  draw --dts-layout config/boards/shields/charybdis/charybdis.dtsi img/charybdis.yaml > img/charybdis.svg
 ```
+
+> `--python 3.12` 는 빼지 말 것. python 3.10 으로 잡히면 옛 keymap-drawer 가 설치돼서
+> tree-sitter 문법 버전 충돌(`Incompatible Language version 15`)로 파싱이 실패한다.
+> 출력 파일 두 개(`img/charybdis.yaml`, `img/charybdis.svg`)는 CI 워크플로가 만드는 것과 같다.
 
 GitHub Actions를 활성화하면 `.github/workflows/draw-keymaps.yml`이 키맵 커밋 시 자동으로 갱신한다.
 
