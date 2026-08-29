@@ -26,16 +26,16 @@ layers:
   - P
   - BSLH
   - ESC
-  - A
-  - S
-  - D
-  - F
+  - {t: A, h: Cmd}
+  - {t: S, h: Alt}
+  - {t: D, h: Ctrl}
+  - {t: F, h: LSHFT}
   - G
   - H
-  - J
-  - K
-  - L
-  - ;
+  - {t: J, h: RSHFT}
+  - {t: K, h: Ctrl}
+  - {t: L, h: Alt}
+  - {t: ;, h: Cmd}
   - ''''
   - LSHFT
   - Z
@@ -49,14 +49,14 @@ layers:
   - .
   - FSLH
   - RSHFT
+  - {t: Home, h: Nav}
   - BSPC
-  - {t: DEL, h: Nav}
-  - Fn
+  - DEL
   - Enter
   - Space
+  - Fn
   - Ctrl
   - Cmd
-  - Alt
   Nav:
   - '`'
   - {t: ▽, type: trans}
@@ -106,9 +106,9 @@ layers:
   - '['
   - ']'
   - {t: ▽, type: trans}
-  - '&mkp MB1'
   - {type: held}
   - '&mkp MB3'
+  - '&mkp MB1'
   - '&mkp MB1'
   - '&mkp MB2'
   - {t: ▽, type: trans}
@@ -140,6 +140,11 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - {t: BT, h: '4'}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -151,6 +156,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - BT CLR
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -160,15 +166,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {type: held}
   - {t: Kp, h: toggle}
   - Mod
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   Mod:
@@ -222,10 +222,10 @@ layers:
   - '&sys_reset'
   - ''
   - ''
-  - {type: held}
+  - ''
   - ''
   - {type: held}
-  - ''
+  - {type: held}
   - ''
   - ''
   Kp:
@@ -280,7 +280,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - KP ENTER
+  - {t: ▽, type: trans}
   - KP 0
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -334,9 +334,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&mkp MB3'
   - '&mkp MB1'
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
   - '&mkp MB1'
   - '&mkp MB2'
   - {t: ▽, type: trans}
