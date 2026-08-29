@@ -11,24 +11,19 @@
 
 ![Charybdis Keymap](img/charybdis.svg)
 
-엄지 클러스터 (Adv360과 동일 기하학 — BSPC·DEL 왼손, ENTER·SPACE 오른손):
+Adv360 실사용 키맵(`main` 브랜치 homerow 레이아웃)을 그대로 이식:
 
-```
-        왼쪽 엄지                        오른쪽 엄지
-[HOME(홀드=스크롤)] [BSPC] [DEL]    [ENTER] [SPACE]
-         [Fn] [Ctrl]                    [Win]
-```
-
-홈로우 모드(GACS): A=GUI, S=ALT, D=CTRL, F=SHIFT / J=SHIFT, K=CTRL, L=ALT, `;`=GUI (홀드 시).
+- **홈로우 모드**: A=GUI, S=RAlt, **D=Shift, F=Ctrl** / J=RCtrl, K=RShift, L=LAlt, `;`=RGui (190ms 홀드)
+- **숫자열 홀드 = F1~F12** (`=`~`-` 키를 꾹 누르면 펑션키)
+- **키콤보**: **S+D+F=ESC**, F+S+E=TAB, J+K+L=RShift, J+I+L=RCtrl
+- 엄지: 왼손 [Ctrl][BSPC][DEL] + 아래 [Mod][MouseLayer] / 오른손 [ENTER][SPACE] + 아래 [Sticky Shift]
 
 | 레이어 | 진입 | 내용 |
 |---|---|---|
-| Base | 기본 | Adv360식 배열: `=`/`-` 숫자열, A 왼쪽 ESC, 하단 Shift, 홈로우 모드 |
-| Nav | 왼엄지 HOME 홀드 (`lt 1`) | 화살표·Home/End/PgUp/PgDn·`[` `]`·CapsLock, **트랙볼이 스크롤 모드로 전환**, 마우스 클릭 |
-| Fn | 왼엄지 아래 Fn 홀드 (`mo 2`) | F1–F12, **`Fn+A~G`=블루투스 프로파일 0~4**, `Fn+B`=현재 프로파일 페어링 해제, `Fn+Enter`=숫자패드 토글, `Fn+Space`=Mod 레이어 |
-| Mod | Fn+Space 홀드 | 부트로더, ZMK Studio 언락, RGB 제어, 리셋, BT 예비 키 |
-| Kp | Fn+Enter 토글 | 오른손 숫자패드 (Adv360 Keypad 레이어와 동일 배치) |
-| Mouse | **트랙볼 움직이면 자동** | 엄지 키가 마우스 버튼으로 전환 (좌·우·휠클릭). 멈추면 400ms 후 원복 |
+| Base | 기본 | 위 홈로우 배열. 하단 양끝 = Nav 홀드 |
+| Nav | 하단 양끝 홀드 (`mo NAV`) | **H/J/K/L = vim식 화살표**, `[` `]`(O/P), `` ` ``(G), **트랙볼이 스크롤 모드** |
+| Mouse | **트랙볼 움직이면 자동** 또는 왼엄지 아래 안쪽 홀드 | **U=좌클릭, I=우클릭**, Y/O=휠, H/J/K/L=커서 이동. 볼 멈추면 400ms 후 원복 |
+| Mod | 왼엄지 아래 바깥 홀드 | 숫자열 1~5=블루투스 프로파일 0~4, G=페어링 해제, 부트로더, Studio 언락, RGB, 리셋 |
 
 트랙볼: 기본은 커서 이동, 움직이면 Mouse 레이어 자동 활성화(`automouse-layer`),
 Nav 홀드 중에는 스크롤 (`scroll-layers = <1>`).
