@@ -57,7 +57,9 @@
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         scroll-layers = <1>;
         //snipe-layers = <2>;
-        automouse-layer = <2>;
+        // automouse: 오른손 바닥이 볼에 스치면 H/J/U/I가 덮여서 비활성화함.
+        // 마우스 레이어는 왼엄지 아래 안쪽(mo NAV_MOUSE) 홀드로 사용.
+        // automouse-layer = <2>;
     };
 };
 
