@@ -57,9 +57,9 @@
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         scroll-layers = <1>;
         //snipe-layers = <2>;
-        // 트랙볼을 움직이면 자동으로 켜지는 전용 레이어(keymap 의 AUTOMOUSE=4).
-        // 엄지 홀드용 NAV_MOUSE(2) 와 분리해서, 자동 진입 시엔 J/K 클릭만 덮이게 함.
-        automouse-layer = <4>;
+        // automouse-layer 는 쓰지 않는다. 드라이버 구현은 움직임이 1카운트만 들어와도
+        // 무조건 레이어를 켜서, 손바닥이 볼에 스치기만 해도 오작동한다.
+        // 대신 아래 trackball_listener 의 zmk,input-processor-temp-layer 를 쓴다.
     };
 };
 
@@ -108,9 +108,35 @@
 
 
 / {
+    // 트랙볼을 굴리면 AUTOMOUSE(4) 레이어를 잠깐 켜 주는 프로세서.
+    // require-prior-idle-ms: 마지막 키 입력 후 이 시간이 지나야 레이어가 켜진다.
+    //   타이핑 중 손바닥이 볼을 스쳐도 레이어가 뜨지 않게 하는 핵심 설정.
+    // excluded-positions: 이 위치(H/J/K/L = 클릭 키)를 뺀 나머지 키를 누르면
+    //   레이어가 즉시 꺼진다. 잘못 켜졌어도 다음 타건에서 바로 원복된다.
+    auto_mouse_layer: auto_mouse_layer {
+        compatible = "zmk,input-processor-temp-layer";
+        #input-processor-cells = <2>;
+        require-prior-idle-ms = <300>;
+        excluded-positions = <30 31 32 33>;
+    };
+
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+        // <레이어 번호> <유지 시간 ms>
+        // 유지 시간은 볼이 멈춘 뒤 클릭 레이어가 남아있는 시간.
+        // 이 시간 안이라도 클릭 키(excluded-positions) 외의 키를 누르면 즉시 해제된다.
+        input-processors = <&auto_mouse_layer 4 800>;
+
+        // automouse 는 베이스 레이어에서만 뜬다.
+        // 레이어를 손으로 잡고 있는 동안 볼을 건드려도 그 레이어가 덮이지 않게,
+        // 프로세서 없는 오버라이드를 걸어 base 의 input-processors 를 건너뛴다.
+        //   NAV(1)      : 화살표 + scroll-layers 대상
+        //   NAV_MOUSE(2): 엄지 홀드 마우스 레이어(mmv/msc)
+        //   MOD(3)      : 부트로더/BT
+        no_automouse {
+            layers = <1 2 3>;
+        };
     };
 };
 
