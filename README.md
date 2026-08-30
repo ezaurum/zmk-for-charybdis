@@ -16,18 +16,37 @@ Adv360 실사용 키맵(`main` 브랜치 homerow 레이아웃)을 그대로 이�
 - **홈로우 모드**: A=GUI, S=RAlt, **D=Shift, F=Ctrl** / J=RCtrl, K=RShift, L=LAlt, `;`=RGui (190ms 홀드)
 - **숫자열 홀드 = F1~F12** (`=`~`-` 키를 꾹 누르면 펑션키)
 - **키콤보**: **S+D+F=ESC**, F+S+E=TAB, J+K+L=RShift, J+I+L=RCtrl
-- 엄지: 왼손 [Ctrl][BSPC][DEL] + 아래 [Mod][MouseLayer] / 오른손 [ENTER][SPACE] + 아래 [Sticky Shift]
+- 엄지: 왼손 [Ctrl][BSPC][DEL] + 아래 [Mod][좌클릭] / 오른손 [ENTER][SPACE] + 아래 [Sticky Shift]
 
 | 레이어 | 진입 | 내용 |
 |---|---|---|
 | Base | 기본 | 위 홈로우 배열. 하단 양끝 = Nav 홀드 |
-| Nav | 하단 양끝 홀드 (`mo NAV`) | **H/J/K/L = vim식 화살표**, `[` `]`(O/P), `` ` ``(G), **트랙볼이 스크롤 모드** |
-| Mouse | 왼엄지 아래 안쪽 홀드 (`mo NAV_MOUSE`) | **U=좌클릭, I=우클릭**, Y/O=휠, H/J/K/L=커서 이동 (Adv360과 동일) |
-| Mod | 왼엄지 아래 바깥 홀드 | 숫자열 1~5=블루투스 프로파일 0~4, G=페어링 해제, 부트로더, Studio 언락, RGB, 리셋 |
+| Nav | 하단 양끝 홀드 (`mo NAV`) | **H/J/K/L = vim식 화살표**, 바로 윗줄 **Y/U/I/O = Home/PgDn/PgUp/End** (화살표와 열 대응), `[` `]`(P/`` \ ``), `` ` ``(G), **트랙볼이 스크롤 모드** |
+| Mod | 왼엄지 아래 왼쪽 홀드 (`mo MOD`) | 숫자열 1~5=블루투스 프로파일 0~4, G=페어링 해제, 부트로더, Studio 언락, RGB, 리셋 |
+| Auto | 트랙볼을 굴리면 자동 진입 | **H=MB4, J=좌클릭, K=우클릭, L=MB5**. 나머지 키는 전부 투명 |
+
+왼엄지 아래 오른쪽은 `&mkp LCLK` — 볼을 안 굴려도 엄지로 바로 좌클릭할 수 있다.
 
 트랙볼: 기본은 커서 이동, Nav 홀드 중에는 스크롤 (`scroll-layers = <1>`).
-automouse는 오른손 바닥이 볼에 닿으면 홈로우를 덮어버려서 의도적으로 꺼둠.
 왼손 엔코더: 1번 상하 스크롤, 2번 좌우 스크롤.
+
+### automouse (Auto 레이어)
+
+볼을 굴리면 Auto 레이어가 잠깐 켜져 홈로우에서 바로 클릭할 수 있다.
+PMW3610 드라이버의 `automouse-layer` 는 **쓰지 않는다** — 모션 인터럽트가 들어오면
+이동량을 읽기도 전에 무조건 레이어를 켜기 때문에, 손바닥이 볼에 스치기만 해도
+H/J/K/L 이 클릭으로 바뀐다. 대신 ZMK 의 `zmk,input-processor-temp-layer` 를 쓴다
+(`config/boards/shields/charybdis/charybdis_right.overlay`):
+
+| 설정 | 값 | 역할 |
+|---|---|---|
+| `require-prior-idle-ms` | 300 | 마지막 키 입력 후 이만큼 지나야 진입. **타이핑 중 스침을 막는 핵심.** |
+| 유지 시간 (프로세서 2번째 인자) | 800 | 볼이 멈춘 뒤 클릭이 살아있는 시간 |
+| `excluded-positions` | `<30 31 32 33>` | 클릭 키(H/J/K/L) 외의 키를 누르면 즉시 해제 |
+| `no_automouse { layers = <1 2>; }` | — | Nav/Mod 홀드 중에는 automouse 가 아예 안 뜬다. AUTOMOUSE 자신은 넣으면 안 된다 (타이머 갱신이 막혀 굴리는 중에 꺼짐) |
+
+커서 **이동**은 게이팅되지 않고 클릭 레이어만 걸린다. 조정할 일이 생기면 두 값은 독립적이다:
+스침으로 아직 켜지면 `require-prior-idle-ms` 를 올리고, 클릭이 너무 빨리 사라지면 유지 시간을 올린다.
 
 ## 수정 방법
 

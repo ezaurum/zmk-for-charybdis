@@ -12,9 +12,8 @@
 
 #define HOMEROW 0
 #define NAV 1
-#define NAV_MOUSE 2
-#define MOD 3
-#define AUTOMOUSE 4
+#define MOD 2
+#define AUTOMOUSE 3
 
 &mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
 
@@ -104,7 +103,7 @@
 &kp ESC       &hm LGUI A  &hm RALT S  &hm LSHFT D  &hm LCTRL F  &kp G        &kp H      &hm RCTRL J  &hm RSHFT K  &hm LALT L  &hm RGUI SEMI  &kp SQT
 &mo NAV       &kp Z       &kp X       &kp C        &kp V        &kp B        &kp N      &kp M        &kp COMMA    &kp DOT     &kp FSLH       &mo NAV
                                       &kp LCTRL    &kp BSPC     &kp DEL      &kp ENTER  &kp SPACE
-                                                   &mo MOD      &mo NAV_MOUSE             &sk RSHFT
+                                                   &mo MOD      &mkp LCLK                 &sk RSHFT
             >;
 
             sensor-bindings =
@@ -115,24 +114,12 @@
         nav {
             display-name = "Nav";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans       &trans    &trans    &trans  &trans     &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &trans       &trans    &trans    &trans  &kp LBKT   &kp RBKT  &trans
-&trans  &trans  &trans  &trans  &trans  &kp GRAVE    &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &trans       &trans    &trans    &trans  &trans     &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans       &trans    &trans      &trans      &trans     &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans       &kp HOME  &kp PG_DN   &kp PG_UP   &kp END    &kp LBKT  &kp RBKT
+&trans  &trans  &trans  &trans  &trans  &kp GRAVE    &kp LEFT  &kp DOWN    &kp UP      &kp RIGHT  &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans       &trans    &trans      &trans      &trans     &trans    &trans
                         &trans  &trans  &trans       &trans    &trans
                                 &trans  &trans       &trans
-            >;
-        };
-
-        nav_mouse {
-            display-name = "Mouse";
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans          &trans          &trans        &trans           &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &msc SCRL_UP    &mkp LCLK       &mkp RCLK     &msc SCRL_DOWN   &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans          &trans          &trans        &trans           &trans  &trans
-                        &trans  &trans  &trans    &trans          &trans
-                                &trans  &trans    &trans
             >;
         };
 
